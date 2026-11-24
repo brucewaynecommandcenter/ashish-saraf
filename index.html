@@ -189,7 +189,11 @@ header.bar.solid{background:rgba(43,30,23,.94);backdrop-filter:blur(10px);paddin
 .ms li{display:grid;grid-template-columns:220px minmax(0,1fr);gap:28px;padding:22px 0;border-bottom:1px solid rgba(241,235,224,.18);align-items:baseline}
 .ms b{font:400 26px/1.1 var(--display);color:var(--gold);font-weight:400}
 .ms span{font-size:19px}
-.mgrid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.mgrid.three{display:block;columns:3;column-gap:16px}
+.mgrid.three figure{break-inside:avoid;margin-bottom:22px}
+.mgrid.three .ph{border-radius:12px}
+.mgrid.three .ph.has{aspect-ratio:auto}
+.mgrid.three .ph.has img{position:static;height:auto}
 .post .date{color:var(--gold);font-size:15px;font-weight:500;margin-bottom:10px}
 .post h3{font-size:22px;margin-bottom:12px}
 .post p{color:var(--ivory2);font-size:16px}
@@ -238,7 +242,7 @@ header.bar.solid{background:rgba(43,30,23,.94);backdrop-filter:blur(10px);paddin
 .clips{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;scrollbar-width:thin;scrollbar-color:var(--gold) transparent}
 .clips .ph{flex:0 0 clamp(210px,22vw,280px);aspect-ratio:691/900;scroll-snap-align:start;cursor:zoom-in}
 
-.interview{position:relative;display:block;width:100%;border:0;padding:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;margin-bottom:clamp(88px,10vw,140px)}
+.interview{position:relative;display:block;width:100%;border:0;padding:0;background:none;color:inherit;font:inherit;text-align:left;cursor:pointer;margin-bottom:18px}
 .interview .ph{aspect-ratio:16/9;border-radius:14px}
 .interview .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(27,19,14,.85))}
 .iv-text{position:absolute;left:clamp(20px,4vw,48px);right:clamp(20px,4vw,48px);bottom:clamp(20px,4vw,44px);z-index:1;display:grid;gap:10px;max-width:760px}
@@ -246,10 +250,12 @@ header.bar.solid{background:rgba(43,30,23,.94);backdrop-filter:blur(10px);paddin
 .iv-text strong{font:400 clamp(24px,3vw,42px)/1.12 var(--display);font-weight:400;color:#fff}
 .iv-text .play{position:static;margin-top:8px}
 /* ---------- videos */
-.vids{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px}
-.vid{grid-column:span 2;position:relative;border:0;padding:0;background:none;color:inherit;cursor:pointer;text-align:left;font:inherit}
-.vid:nth-child(-n+2){grid-column:span 3}
-.vid .ph{aspect-ratio:16/9}
+.vids{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-bottom:clamp(88px,10vw,140px)}
+.vid{position:relative;border:0;padding:0;background:none;color:inherit;cursor:pointer;text-align:left;font:inherit}
+.vid .ph{aspect-ratio:16/9;border-radius:12px}
+.vid .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 45%,rgba(27,19,14,.8))}
+.play{z-index:1;right:22px}
+.play small{display:block;font-size:13px;opacity:.8}
 .play{position:absolute;left:22px;bottom:22px;display:flex;align-items:center;gap:12px;font-size:15px;color:#fff;text-shadow:0 1px 10px rgba(0,0,0,.5)}
 .play i{width:52px;height:52px;border-radius:50%;background:var(--ivory);display:grid;place-items:center;transition:transform .5s cubic-bezier(.2,.75,.2,1)}
 .play i::after{content:"";border-left:13px solid var(--walnut);border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:4px}
@@ -326,11 +332,11 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 .n1{grid-column:1;grid-row:1;justify-self:start;margin:0 0 -.3em;align-self:end}
 .n2{grid-column:1;grid-row:3;justify-self:end;margin:-.32em 0 0}
 .nm{font-size:clamp(64px,19vw,120px)}
-.statement,.bio,.ind-top,.hon,.feature,.cgrid,.acc .body,.subhead,.fam,.ms li{grid-template-columns:minmax(0,1fr)}.ms li{gap:4px}.mgrid.three{grid-template-columns:repeat(2,minmax(0,1fr))}.iv-text .play span{display:none}
+.statement,.bio,.ind-top,.hon,.feature,.cgrid,.acc .body,.subhead,.fam,.ms li{grid-template-columns:minmax(0,1fr)}.ms li{gap:4px}.mgrid.three{columns:2}.iv-text .play span{display:none}
 .bio .side{position:static}.head p{grid-column:1/-1}
 .frame.sm{justify-self:start;max-width:300px}
 .co{grid-template-columns:minmax(0,1fr);gap:10px;padding:26px 0}.co .what{grid-column:1}.co .cap{grid-column:1;grid-row:auto;text-align:left;margin-top:8px;font-size:34px}.co .cap small{max-width:34ch}
-.vids{grid-template-columns:minmax(0,1fr)}.vid,.vid:nth-child(-n+2){grid-column:auto}}
+.vids{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:560px){
 .tl{padding-left:44px;gap:48px}.tl li{grid-template-columns:minmax(0,1fr);gap:6px}.mk{left:-44px}
 .post{grid-template-columns:minmax(0,1fr)}.post .frame{max-width:360px}
@@ -511,6 +517,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 <section class="ch dark" id="press"><div class="wrap">
   <div class="head"><h2>In the news</h2><p class="mute">Interviews and coverage of his work in trade, diplomacy and industry.</p></div>
   <div class="interview" id="interview"></div>
+  <div class="vids" id="vids"></div>
   <article class="feature">
     <figure class="ph" data-img="images/img-news.jpg" data-cap="India eyes Bahamas investment" data-lb tabindex="0"></figure>
     <div>
@@ -522,8 +529,6 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
   </article>
   <div class="cliphead"><h3>Press clippings</h3><div class="arrows"><button id="cp" aria-label="Previous clippings">&#8592;</button><button id="cn" aria-label="Next clippings">&#8594;</button></div></div>
   <div class="clips" id="clips" tabindex="0" aria-label="Press clippings"></div>
-  <div class="cliphead" id="videos"><h3>Videos</h3></div>
-  <div class="vids" id="vids"></div>
 </div></section>
 
 <section class="ch light" id="gallery"><div class="wrap">
@@ -624,7 +629,7 @@ const photos=[[0,"451.jpg","Ashish Saraf with the Prime Minister of Spain"],[0,"
 const media=[3,21,19,18,17,16,15,14,13,12,11,10,9,8,7,6,5,4].map(n=>'media/media'+n+'.jpg');
 /* YouTube videos from the current site; add a title as the second value when known */
 const interview=['FzD3gobDf0E','Conversation with Ashish Saraf on economics, diplomacy and the future of India and Serbia','Euronews Serbia, Čadež talk'];
-const videos=[['kdCTzxrfYNo',''],['75DZpWbm8E8',''],['i-lvHvXynVQ',''],['kxAovwP6Iyk',''],['vBjm8iEfMf4','']];
+const videos=[['kdCTzxrfYNo','Ashish Saraf live','BizWizards'],['i-lvHvXynVQ','No plans to merge with Facor Alloys','Moneycontrol'],['kxAovwP6Iyk','Ferro Alloys targets 14-15% EBITDA margin in FY12','Moneycontrol'],['vBjm8iEfMf4','Interview as Joint MD of Ferro Alloys','Sunit Kumar']];
 const strip=[219,220,223,226].map(i=>['gallery_image/gallery'+i+'.jpg','First visit of the Foreign Minister of the Bahamas to India']);
 const diploMore=[['images/maldives2.jpg','Honorary Consul of the Maldives'],['images/diplomat2.jpg','Honorary Consul of the Bahamas'],['images/spanish1.jpg','Knight of the Civil Merit Order'],['images/spanish3.jpg','Knight of the Civil Merit Order']];
 
@@ -660,7 +665,7 @@ const li=a=>a.map(r=>`<li><small>${r[0]}</small>${r[1]}</li>`).join('');
 $('#clubs').innerHTML=clubs.map(c=>`<div><small>${c[0]}</small><ul>${c[1].map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('');
 $('#aw').innerHTML=li(awards);$('#rc').innerHTML=li(recs);
 $('#clips').innerHTML=media.map((m,i)=>ph(m,'Press clipping '+(i+1),'data-lb tabindex="0"')).join('');
-$('#vids').innerHTML=videos.map((v,i)=>`<button class="vid" data-v="${v[0]}" aria-label="Play video ${i+1}">${ph('https://i.ytimg.com/vi/'+v[0]+'/maxresdefault.jpg','',`data-fb="https://i.ytimg.com/vi/${v[0]}/hqdefault.jpg"`)}<span class="play"><i></i>${v[1]||'Watch video '+(i+1)}</span></button>`).join('');
+$('#vids').innerHTML=videos.map((v,i)=>`<button class="vid" data-v="${v[0]}" aria-label="Play video ${i+1}">${ph('https://i.ytimg.com/vi/'+v[0]+'/maxresdefault.jpg','',`data-fb="https://i.ytimg.com/vi/${v[0]}/hqdefault.jpg"`)}<span class="play"><i></i><span>${v[1]||'Watch video '+(i+1)}${v[2]?`<small>${v[2]}</small>`:''}</span></span></button>`).join('');
 $('#yr').textContent=new Date().getFullYear();
 
 /* ---------- gallery */
