@@ -127,7 +127,7 @@ header.bar.solid{background:rgba(43,30,23,.94);backdrop-filter:blur(10px);paddin
 .ind-top{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,320px);gap:6vw;align-items:end;margin-bottom:clamp(56px,7vw,96px)}
 .ind-top h2{margin-bottom:28px}
 .ind-top p{font-size:19px;color:var(--ink2)}
-.arch.sm{width:100%;max-width:320px;justify-self:end}
+.frame.sm{width:100%;max-width:340px;justify-self:end}
 .cos{border-top:1px solid rgba(36,25,15,.2)}
 .co{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,.9fr);gap:28px;padding:30px 0;border-bottom:1px solid rgba(36,25,15,.2);align-items:baseline}
 .co h3{font-size:22px}
@@ -138,10 +138,12 @@ header.bar.solid{background:rgba(43,30,23,.94);backdrop-filter:blur(10px);paddin
 
 /* ---------- diplomat */
 .posts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(28px,4vw,64px)}
-.post .arch{aspect-ratio:3/3.7;margin-bottom:30px}
-.post .arch,.arch.sm{box-shadow:inset 0 0 0 1px rgba(199,157,85,.45)}
-.post .arch .ph,.arch.sm .ph{background:linear-gradient(170deg,rgba(199,157,85,.16),rgba(199,157,85,.04))}
-.arch .ph.has{box-shadow:none}
+.frame{border-radius:14px;overflow:hidden}
+.frame .ph{border-radius:14px;background:linear-gradient(170deg,rgba(199,157,85,.16),rgba(199,157,85,.04))}
+.frame .ph img{object-fit:contain}
+.posts{grid-template-rows:auto auto}
+.post{display:grid;grid-row:span 2;grid-template-rows:subgrid}
+.post .frame{align-self:end;margin-bottom:30px}
 .post .date{color:var(--gold);font-size:15px;font-weight:500;margin-bottom:10px}
 .post h3{font-size:22px;margin-bottom:12px}
 .post p{color:var(--ivory2);font-size:16px}
@@ -254,7 +256,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 /* ---------- responsive */
 @media(max-width:1000px){
 .facts,.figs{grid-template-columns:repeat(2,minmax(0,1fr))}
-.posts{grid-template-columns:minmax(0,1fr)}.post{display:grid;grid-template-columns:minmax(0,240px) minmax(0,1fr);gap:32px;align-items:end}.post .arch{margin:0}
+.posts{grid-template-columns:minmax(0,1fr)}.post{grid-row:auto;grid-template-rows:none;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:32px;align-items:end}.post .frame{margin:0}
 .mgrid,.gal{grid-template-columns:repeat(3,minmax(0,1fr))}
 #menu{grid-template-columns:minmax(0,1fr)}.menu-side{display:none}}
 @media(max-width:820px){
@@ -265,12 +267,12 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 .nm{font-size:clamp(64px,19vw,120px)}
 .statement,.bio,.ind-top,.hon,.feature,.cgrid,.acc .body{grid-template-columns:minmax(0,1fr)}
 .bio .side{position:static}.head p{grid-column:1/-1}
-.arch.sm{justify-self:start;max-width:260px}
+.frame.sm{justify-self:start;max-width:300px}
 .co{grid-template-columns:minmax(0,1fr) auto}.co .what{grid-column:1}.co .cap{grid-column:2}
 .vids{grid-template-columns:minmax(0,1fr)}.vid,.vid:nth-child(-n+2){grid-column:auto}}
 @media(max-width:560px){
 .tl li{grid-template-columns:minmax(0,1fr);gap:6px}
-.post{grid-template-columns:minmax(0,1fr)}.post .arch{max-width:280px}
+.post{grid-template-columns:minmax(0,1fr)}.post .frame{max-width:360px}
 .mgrid,.gal{grid-template-columns:repeat(2,minmax(0,1fr))}
 .facts,.figs{gap:28px 18px}
 .hero-foot .cue{display:none}}
@@ -356,7 +358,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:1
 <section class="ch light" id="industrialist" style="padding-top:0"><div class="wrap">
   <div class="ind-top">
     <div><h2>The Industrialist</h2><p>The FACOR Group is one of India's largest ferro alloys producers, making about 140,000 tons a year. It mines chrome ore in Orissa, runs plants in Andhra Pradesh, Maharashtra and Orissa, and exports ferro alloys, chrome ore and steel products to Asia, Europe, North America and beyond.</p></div>
-    <div class="arch sm reveal"><div class="ph" data-img="images/img-industrialist.jpg" data-cap="The Industrialist" data-lb tabindex="0" style="position:absolute;inset:0;cursor:zoom-in"></div></div>
+    <div class="frame sm reveal"><div class="ph" data-img="images/img-industrialist.jpg" data-cap="The Industrialist" data-lb tabindex="0" style="aspect-ratio:400/372;cursor:zoom-in"></div></div>
   </div>
   <div class="cos" id="cos"></div>
   <p class="mute" style="margin-top:28px;font-size:15px">Along with other group companies of the larger family.</p>
@@ -503,7 +505,8 @@ function loadImgs(root){root.querySelectorAll('.ph[data-img]:not([data-l])').for
 /* ---------- content */
 $('#tl').innerHTML=timeline.map(t=>`<li><div class="yr">${t[0]}</div><div><h3>${t[1]}</h3><p>${t[2]}</p></div></li>`).join('');
 $('#cos').innerHTML=companies.map(c=>`<div class="co"><div><h3>${c[0]}</h3><div class="where">${c[1]}</div></div>${c[2]?`<div class="what">${c[2]}</div>`:'<div></div>'}${c[3]?`<div class="cap">${c[3]}<small>${c[4]}</small></div>`:''}</div>`).join('');
-$('#posts').innerHTML=creds.map(c=>`<article class="post"><div class="arch reveal">${ph(c[4],c[1],'data-lb tabindex="0" style="position:absolute;inset:0;cursor:zoom-in"')}</div><div><div class="date">${c[0]}</div><h3>${c[1]}</h3><p>${c[2]}</p></div></article>`).join('');
+const ratio={'images/maldives1.jpg':'800/534','images/diplomat1.jpg':'500/333','images/spanish2.jpg':'600/534'};
+$('#posts').innerHTML=creds.map(c=>`<article class="post"><div class="frame reveal">${ph(c[4],c[1],`data-lb tabindex="0" style="aspect-ratio:${ratio[c[4]]||'3/2'};cursor:zoom-in"`)}</div><div><div class="date">${c[0]}</div><h3>${c[1]}</h3><p>${c[2]}</p></div></article>`).join('');
 const moments=[...strip,...diploMore];
 $('#moments').innerHTML=moments.map(m=>`<figure>${ph(m[0],m[1],'data-lb tabindex="0"')}<figcaption>${m[1]}</figcaption></figure>`).join('');
 $('#acc').innerHTML=phil.map((p,i)=>`<details${i?'':' open'}><summary>${p[0]}</summary>${p[1]?`<div class="body">${p[1].startsWith('<')?p[1]:'<p>'+p[1]+'</p>'}</div>`:''}</details>`).join('');
