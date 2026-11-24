@@ -495,9 +495,10 @@ const $=s=>document.querySelector(s);
 const imgUrl=src=>/^(https?:|data:)/.test(src)?src:IMG_BASE+encodeURI(src);
 const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const ph=(src,cap='',attrs='')=>`<div class="ph" data-img="${esc(src)}" data-cap="${esc(cap)}" ${attrs}></div>`;
-function loadImgs(root){root.querySelectorAll('.ph[data-img]:not([data-l])').forEach(f=>{f.dataset.l=1;const im=new Image();im.alt=f.dataset.cap||'Ashish Saraf';im.decoding='async';im.loading='lazy';
- im.onload=()=>{if(im.naturalWidth<200&&f.dataset.fb){const fb=f.dataset.fb;delete f.dataset.fb;im.src=fb;return}f.prepend(im);requestAnimationFrame(()=>f.classList.add('has'))};
- im.onerror=()=>{if(f.dataset.fb){const fb=f.dataset.fb;delete f.dataset.fb;im.src=fb}};im.src=imgUrl(f.dataset.img)})}
+function loadImgs(root){root.querySelectorAll('.ph[data-img]:not([data-l])').forEach(f=>{f.dataset.l=1;const im=document.createElement('img');im.alt=f.dataset.cap||'Ashish Saraf';im.decoding='async';im.loading='lazy';
+ im.onload=()=>{if(im.naturalWidth<200&&f.dataset.fb){const fb=f.dataset.fb;delete f.dataset.fb;im.src=fb;return}f.classList.add('has')};
+ im.onerror=()=>{if(f.dataset.fb){const fb=f.dataset.fb;delete f.dataset.fb;im.src=fb}else im.remove()};
+ f.prepend(im);im.src=imgUrl(f.dataset.img)})}
 
 /* ---------- content */
 $('#tl').innerHTML=timeline.map(t=>`<li><div class="yr">${t[0]}</div><div><h3>${t[1]}</h3><p>${t[2]}</p></div></li>`).join('');
