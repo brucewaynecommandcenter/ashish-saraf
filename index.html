@@ -281,7 +281,7 @@ header.bar.solid{background:rgba(43,30,23,.94);backdrop-filter:blur(10px);paddin
 .gal figure{flex:1.5 1 calc(var(--rh) * 1.5);max-width:calc(var(--rh) * 3.2)}
 .gal .ph{border-radius:10px;aspect-ratio:var(--ar,1.5)}
 .gal figure{margin:0;cursor:zoom-in}
-.gal .ph{aspect-ratio:3/2}
+
 .gal figcaption{font-size:14px;color:var(--ink2);margin-top:8px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .gfoot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:40px;color:var(--ink2);font-size:15px}
 .btn{display:inline-flex;align-items:center;min-height:50px;padding:0 28px;border-radius:999px;border:1px solid currentColor;background:none;color:inherit;font:500 15px var(--text);text-decoration:none;cursor:pointer;transition:background .35s,color .35s}
@@ -645,7 +645,7 @@ const imgUrl=src=>/^(https?:|data:|photos\/)/.test(src)?src:IMG_BASE+encodeURI(s
 const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const ph=(src,cap='',attrs='')=>`<div class="ph" data-img="${esc(src)}" data-cap="${esc(cap)}" ${attrs}></div>`;
 function loadImgs(root){root.querySelectorAll('.ph[data-img]:not([data-l])').forEach(f=>{f.dataset.l=1;const im=document.createElement('img');im.alt=f.dataset.cap||'Ashish Saraf';im.decoding='async';im.loading='lazy';
- im.onload=()=>{if(im.naturalWidth<200&&f.dataset.fb){const fb=f.dataset.fb;delete f.dataset.fb;im.src=fb;return}f.classList.add('has');const fig=f.closest('#gal figure');if(fig){const ar=im.naturalWidth/im.naturalHeight;fig.style.flex=`${ar} 1 calc(var(--rh) * ${ar})`;fig.style.maxWidth=`calc(var(--rh) * ${ar*1.6})`;f.style.setProperty('--ar',ar)}};
+ im.onload=()=>{if(im.naturalWidth<200&&f.dataset.fb){const fb=f.dataset.fb;delete f.dataset.fb;im.src=fb;return}f.classList.add('has');const fig=f.closest('#gal figure');if(fig){const ar=im.naturalWidth/im.naturalHeight;fig.style.flex=`${ar} 1 calc(var(--rh) * ${ar})`;fig.style.maxWidth='none';f.style.setProperty('--ar',ar)}};
  im.onerror=()=>{if(f.dataset.fb){const fb=f.dataset.fb;delete f.dataset.fb;im.src=fb}else im.remove()};
  f.prepend(im);im.src=imgUrl(f.dataset.img)})}
 
